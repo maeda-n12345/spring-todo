@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Todo一覧</title>
+</head>
+
+<body>
+  <h1>Todo一覧</h1>
+
+  <!--  フォームクラスと入力内容を紐づける-->
+  <form th:action="@{/todo/create}" th:object="${todoForm}" method="post">
+
+    <div>
+      <input type="text" th:field="*{title}">
+    </div>
+
+    <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+
+    <button type="submit">登録</button>
+
+  </form>
+
+  <table border="1">
+
+    <tr>
+      <th>ID</th>
+      <th>タイトル</th>
+      <th>ステータス</th>
+      <th>操作</th>
+    </tr>
+
+    <tr th:each="todo : ${todoList}">
+      <td th:text="${todo.id}"></td>
+      <td th:text="${todo.title}"></td>
+      <td>
+        <span th:if="${todo.status == 0}">
+          未完了
+        </span>
+        <span th:if="${todo.status == 1}">
+          完了
+        </span>
+      </td>
+      <td>
+
+        <!--URL へ id を埋め込む-->
+        <form th:action="@{/todo/status/{id}(id=${todo.id})}" method="post" style="display:inline">
+
+          <button type="submit" th:if="${todo.status == 0}">
+            完了
+          </button>
+
+          <button type="submit" th:if="${todo.status == 1}">
+            未完了
+          </button>
+
+        </form>
+
+        <form th:action="@{/todo/delete/{id}(id=${todo.id})}" method="post" style="display:inline">
+
+          <button type="submit" onclick="return confirm('削除しますか？')">
+            削除
+          </button>
+
+        </form>
+
+      </td>
+    </tr>
+
+  </table>
+
+</body>
+
+</html>
