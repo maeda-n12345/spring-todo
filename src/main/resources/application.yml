@@ -1,9 +1,9 @@
 spring:
   # DB 接続設定
   datasource:
-    url: jdbc:mysql://localhost:3306/todo_db?serverTimezone=Asia/Tokyo
-    username: root
-    password: root
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
     
   # JPA(Hibernate) の動作設定
