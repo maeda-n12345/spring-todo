@@ -1,0 +1,19 @@
+spring:
+  # DB 接続設定
+  datasource:
+    url: jdbc:mysql://localhost:3306/todo_db?serverTimezone=Asia/Tokyo
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    
+  # JPA(Hibernate) の動作設定
+  jpa:
+    hibernate:
+      ddl-auto: update  # Entity 変更に応じてテーブル構造を自動更新する
+    
+    show-sql: true  # Hibernate が実行する SQL をログ表示する
+    
+    properties:
+      hibernate:
+        format_sql: true  # SQL フォーマットを整える
+   
