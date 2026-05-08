@@ -9,6 +9,14 @@
 <body>
   <h1>Todo一覧</h1>
 
+  <form th:action="@{/logout}" method="post">
+    <button type="submit">
+      ログアウト
+    </button>
+  </form>
+
+  <hr>
+
   <!--  フォームクラスと入力内容を紐づける-->
   <form th:action="@{/todo/create}" th:object="${todoForm}" method="post">
 
@@ -26,7 +34,7 @@
 
     <tr>
       <th>ID</th>
-      <th>タイトル</th>
+      <th>タスク</th>
       <th>ステータス</th>
       <th>操作</th>
     </tr>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>ログイン</title>
+</head>
+
+<body>
+
+  <h1> Todoアプリ ログイン </h1>
+
+  <form th:action="@{/login}" method="post">
+
+    <div>
+      <label>ユーザーID</label>
+      <input type="text" name="username">
+    </div>
+
+    <div>
+      <label>パスワード</label>
+      <input type="password" name="password">
+    </div>
+
+    <button type="submit">ログイン</button>
+  </form>
+
+</body>
