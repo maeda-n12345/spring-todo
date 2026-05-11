@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 /**
- * 画面入力を受け取るFormクラス<br>
+ * Todo の入力を受け取るFormクラス<br>
  * <br>
  */
 @Data

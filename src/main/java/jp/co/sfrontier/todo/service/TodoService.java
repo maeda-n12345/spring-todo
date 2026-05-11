@@ -26,7 +26,7 @@ public interface TodoService {
 	 * Todo のステータスを更新する
 	 * @param id ステータスを更新する Todo の id
 	 */
-	void updataStatus(Long id);
+	void updateStatus(Long id);
 
 	/**
 	 * Todo を削除する

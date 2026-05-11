@@ -16,4 +16,8 @@ spring:
     properties:
       hibernate:
         format_sql: true  # SQL フォーマットを整える
-   
+
+logging:
+  level:
+    root: info
+    jp.co.sfrontier.todo: debug

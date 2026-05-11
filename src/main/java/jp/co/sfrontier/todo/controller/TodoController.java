@@ -1,8 +1,13 @@
 package jp.co.sfrontier.todo.controller;
 
+import java.security.Principal;
+
 import jakarta.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,10 +19,12 @@ import jp.co.sfrontier.todo.form.TodoForm;
 import jp.co.sfrontier.todo.service.TodoService;
 
 /**
- * todo の画面を制御するクラス
+ * todo を表示する画面を制御するクラス
  */
 @Controller
 public class TodoController {
+
+	private static final Logger logger = LoggerFactory.getLogger(TodoController.class);
 
 	@Autowired
 	private TodoService todoService;
@@ -31,7 +38,11 @@ public class TodoController {
 	 */
 	@GetMapping("/todo/list")
 	// TODO メソッド名を動詞にする
-	public String list(Model model) {
+	public String list(Model model, Principal principal) {
+
+		logger.info("Todo一覧画面表示");
+
+		System.out.println(principal.getName());
 
 		model.addAttribute("todoList", todoService.findAll());
 
@@ -76,7 +87,7 @@ public class TodoController {
 	@PostMapping("/todo/status/{id}")
 	public String updateStatus(@PathVariable Long id) { // PathVariable でURLから値を取得する
 
-		todoService.updataStatus(id);
+		todoService.updateStatus(id);
 
 		return "redirect:/todo/list";
 	}
@@ -88,6 +99,7 @@ public class TodoController {
 	 * @param id 削除する Todo の id
 	 * @return Todo を削除したあとの画面
 	 */
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/todo/delete/{id}")
 	public String delete(@PathVariable Long id) {
 

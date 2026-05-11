@@ -9,6 +9,18 @@
 <body>
 
   <h1> Todoアプリ ログイン </h1>
+  
+  <div th:if="${param.error}">
+    <p style="color:red">
+      ユーザーIDまたはパスワードが違います。
+    </p>
+  </div>
+  
+  <div th:if="${param.logout}">
+    <p>
+      ログアウトしました。
+    </p>
+  </div>
 
   <form th:action="@{/login}" method="post">
 
@@ -24,5 +36,11 @@
 
     <button type="submit">ログイン</button>
   </form>
+  
+  <hr>
+  
+  <div>
+    <a th:href="@{/signup}">新規ユーザー登録はこちら</a>
+  </div>
 
 </body>

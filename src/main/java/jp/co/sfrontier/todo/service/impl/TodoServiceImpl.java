@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +16,13 @@ import jp.co.sfrontier.todo.repository.TodoRepository;
 import jp.co.sfrontier.todo.service.TodoService;
 
 /**
- * Todo の業務ロジックを担うサービスクラス<br>
+ * Todo の業務ロジックを提供するクラス<br>
  * <br>
  */
 @Service
 public class TodoServiceImpl implements TodoService {
+
+	private static final Logger logger = LoggerFactory.getLogger(TodoServiceImpl.class);
 
 	@Autowired
 	private TodoRepository todoRepository;
@@ -46,17 +50,21 @@ public class TodoServiceImpl implements TodoService {
 		todo.setUpdatedAt(LocalDateTime.now());
 
 		todoRepository.save(todo);
+
+		logger.info("Todo登録 title={}", todo.getTitle());
 	}
 
 	/**
 	 * Todo のステータスを更新する
 	 */
 	@Override
-	public void updataStatus(Long id) {
-		
+	public void updateStatus(Long id) {
+
 		Optional<TodoEntity> optionalTodo = todoRepository.findById(id);
 
 		if (optionalTodo.isEmpty()) {
+
+			logger.warn("Todoが存在しません id={}", id);
 			return;
 		}
 
@@ -71,6 +79,8 @@ public class TodoServiceImpl implements TodoService {
 		todo.setUpdatedAt(LocalDateTime.now());
 
 		todoRepository.save(todo);
+
+		logger.info("Todo状態変更 id={}", id);
 	}
 
 	/**
@@ -79,6 +89,8 @@ public class TodoServiceImpl implements TodoService {
 	@Override
 	public void delete(Long id) {
 		todoRepository.deleteById(id);
+
+		logger.info("Todoを削除しました。id={} ", id);
 	}
 
 }
